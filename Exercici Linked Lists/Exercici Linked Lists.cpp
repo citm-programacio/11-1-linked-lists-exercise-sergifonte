@@ -1,19 +1,99 @@
-// Exercici Linked Lists.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
+/* Exercici Linked Lists
+1. Implement the push_back function:
+    - void push_back (const int &value) {...}
+2. Implement the insert function:
+    - void insert (unsigned int position, const int &value) {...}
+3. Implement the print function. It prints the whole list from beginning to end:
+    - void print () {...}
+4. From the main function, insert 5 elements in different positions and print the whole list after each insertion*/
 
 #include <iostream>
+using namespace std;
+
+class List
+{
+public:
+    List() = default;
+
+    ~List()
+    {
+        clear();
+    }
+
+    void push_front(const int& value);
+    void push_back(const int& value);
+    void insert(unsigned int position, const int& value);
+    void print() const;
+    void clear();
+
+    bool empty() const
+    {
+        return num_elems == 0;
+    }
+    unsigned int size() const
+    {
+        return num_elems;
+    }
+
+private:
+    struct Node
+    {
+        int value;
+        Node* next;
+        Node* prev;
+    };
+
+    Node* first = nullptr;
+    Node* last = nullptr;
+    unsigned int num_elems = 0;
+};
+
+void List::push_back(const int& value)
+{
+    Node* new_node = new Node;
+    new_node->value = value;
+   
+
+}
+
+void List::insert(unsigned int position, const int& value)
+{
+    if (position >= num_elems)
+    {
+        push_back(value);
+        return;
+    }
+
+    Node* new_node = new Node;
+    new_node->value = value;
+    
+
+}
+
+void List::print() const
+{
+    Node* current = first;
+    while (current)
+    {
+        cout << current->value << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+
+void List::clear()
+{
+    
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    List my_list;
+
+    my_list.insert(0, 10);
+    my_list.print();
+
+    my_list.insert(1, 20);
+    my_list.print();
+
 }
-
-// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
-// Depurar programa: F5 o menú Depurar > Iniciar depuración
-
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
-//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
