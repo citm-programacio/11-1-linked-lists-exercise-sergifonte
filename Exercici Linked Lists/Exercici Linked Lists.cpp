@@ -22,7 +22,7 @@ public:
 
     void push_front(const int& value)
     {
-        if (num_elems = 0)
+        if (num_elems == 0)
         {
             first = last = new Node;
             first->value = value;
@@ -34,28 +34,31 @@ public:
             Node* node = new Node;
             node->value = value;
             node->prev = nullptr;
-            node->next = nullptr;
-            first -> prev = node;
+            node->next = first;
+            first->prev = node;
             first = node;
         }
+        num_elems++;
     }
 
     void push_back(const int& value)
     {
-        Node* new_node = new Node;
-        new_node->value = value;
-        new_node->next = nullptr;
-        new_node->prev = last;
-
-        if (last)
+        if (num_elems == 0)
         {
-            last->next = new_node;
+            last = first = new Node;
+            last->value = value;
+            last->prev = nullptr;
+            last->next = nullptr;
         }
         else
         {
-            first = new_node;
+            Node* node = new Node;
+            node->value = value;
+            node->prev = last;
+            node->next = nullptr;
+            last->next = node;
+            last = node;
         }
-        last = new_node;
         num_elems++;
     }
 
@@ -102,7 +105,7 @@ public:
     void print() const
     {
         Node* current = first;
-        while (current)
+        while (current != nullptr)
         {
             cout << current->value << " ";
             current = current->next;
@@ -148,19 +151,19 @@ int main()
 {
     List my_list;
 
-    my_list.insert(0, 10); // Inserir al principi
+    my_list.insert(0, 10);
     my_list.print();
 
-    my_list.insert(1, 20); // Inserir al final
+    my_list.insert(1, 20);
     my_list.print();
 
-    my_list.insert(1, 15); // Inserir al mig
+    my_list.insert(1, 15);
     my_list.print();
 
-    my_list.insert(0, 5); // Inserir al principi
+    my_list.insert(0, 5);
     my_list.print();
 
-    my_list.insert(2, 12); // Inserir al mig
+    my_list.insert(2, 12);
     my_list.print();
 }
 
