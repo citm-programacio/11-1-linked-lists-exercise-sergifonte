@@ -80,7 +80,7 @@ public:
 
     void clear()
     {
-        while (first)
+        while (first != nullptr)
         {
             Node* temp = first;
             first = first->next;
@@ -88,15 +88,6 @@ public:
         }
         last = nullptr;
         num_elems = 0;
-    }
-
-    bool empty() const
-    {
-        return num_elems == 0;
-    }
-    unsigned int size() const
-    {
-        return num_elems;
     }
 
 private:
