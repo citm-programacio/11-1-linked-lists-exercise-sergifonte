@@ -64,42 +64,7 @@ public:
 
     void insert(unsigned int position, const int& value)
     {
-        if (position >= num_elems)
-        {
-            push_back(value);
-            return;
-        }
-
-        Node* new_node = new Node;
-        new_node->value = value;
-        new_node->next = nullptr;
-        new_node->prev = nullptr;
-
-        if (position == 0)
-        {
-            new_node->next = first;
-            if (first)
-                first->prev = new_node;
-            first = new_node;
-            if (!last)
-                last = new_node;
-        }
-        else
-        {
-            Node* current = first;
-            for (unsigned int i = 0; i < position - 1; ++i)
-            {
-                current = current->next;
-            }
-            new_node->next = current->next;
-            new_node->prev = current;
-            if (current->next)
-                current->next->prev = new_node;
-            current->next = new_node;
-            if (new_node->next == nullptr)
-                last = new_node;
-        }
-        num_elems++;
+        
     }
 
     void print() const
