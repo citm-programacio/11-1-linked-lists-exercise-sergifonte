@@ -20,11 +20,107 @@ public:
         clear();
     }
 
-    void push_front(const int& value);
-    void push_back(const int& value);
-    void insert(unsigned int position, const int& value);
-    void print() const;
-    void clear();
+    void push_front(const int& value)
+    {
+        if (num_elems = 0)
+        {
+            first = last = new Node;
+            first->value = value;
+            first->prev = nullptr;
+            first->next = nullptr;
+        }
+        else
+        {
+            Node* node = new Node;
+            node->value = value;
+            node->prev = nullptr;
+            node->next = nullptr;
+            first -> prev = node;
+            first = node;
+        }
+    }
+
+    void push_back(const int& value)
+    {
+        Node* new_node = new Node;
+        new_node->value = value;
+        new_node->next = nullptr;
+        new_node->prev = last;
+
+        if (last)
+        {
+            last->next = new_node;
+        }
+        else
+        {
+            first = new_node;
+        }
+        last = new_node;
+        num_elems++;
+    }
+
+    void insert(unsigned int position, const int& value)
+    {
+        if (position >= num_elems)
+        {
+            push_back(value);
+            return;
+        }
+
+        Node* new_node = new Node;
+        new_node->value = value;
+        new_node->next = nullptr;
+        new_node->prev = nullptr;
+
+        if (position == 0)
+        {
+            new_node->next = first;
+            if (first)
+                first->prev = new_node;
+            first = new_node;
+            if (!last)
+                last = new_node;
+        }
+        else
+        {
+            Node* current = first;
+            for (unsigned int i = 0; i < position - 1; ++i)
+            {
+                current = current->next;
+            }
+            new_node->next = current->next;
+            new_node->prev = current;
+            if (current->next)
+                current->next->prev = new_node;
+            current->next = new_node;
+            if (new_node->next == nullptr)
+                last = new_node;
+        }
+        num_elems++;
+    }
+
+    void print() const
+    {
+        Node* current = first;
+        while (current)
+        {
+            cout << current->value << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+    void clear()
+    {
+        while (first)
+        {
+            Node* temp = first;
+            first = first->next;
+            delete temp;
+        }
+        last = nullptr;
+        num_elems = 0;
+    }
 
     bool empty() const
     {
@@ -47,88 +143,6 @@ private:
     Node* last = nullptr;
     unsigned int num_elems = 0;
 };
-
-void List::push_back(const int& value)
-{
-    Node* new_node = new Node;
-    new_node->value = value;
-    new_node->next = nullptr;
-    new_node->prev = last;
-
-    if (last)
-    {
-        last->next = new_node;
-    }
-    else
-    {
-        first = new_node;
-    }
-    last = new_node;
-    num_elems++;
-}
-
-void List::insert(unsigned int position, const int& value)
-{
-    if (position >= num_elems)
-    {
-        push_back(value);
-        return;
-    }
-
-    Node* new_node = new Node;
-    new_node->value = value;
-    new_node->next = nullptr;
-    new_node->prev = nullptr;
-
-    if (position == 0)
-    {
-        new_node->next = first;
-        if (first)
-            first->prev = new_node;
-        first = new_node;
-        if (!last)
-            last = new_node;
-    }
-    else
-    {
-        Node* current = first;
-        for (unsigned int i = 0; i < position - 1; ++i)
-        {
-            current = current->next;
-        }
-        new_node->next = current->next;
-        new_node->prev = current;
-        if (current->next)
-            current->next->prev = new_node;
-        current->next = new_node;
-        if (new_node->next == nullptr)
-            last = new_node;
-    }
-    num_elems++;
-}
-
-void List::print() const
-{
-    Node* current = first;
-    while (current)
-    {
-        cout << current->value << " ";
-        current = current->next;
-    }
-    cout << endl;
-}
-
-void List::clear()
-{
-    while (first)
-    {
-        Node* temp = first;
-        first = first->next;
-        delete temp;
-    }
-    last = nullptr;
-    num_elems = 0;
-}
 
 int main()
 {
